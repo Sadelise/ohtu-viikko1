@@ -65,4 +65,61 @@ public class VarastoTest {
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
+    @Test
+    public void tilavuusNollaKunAlustetaanNollallaTaiAlemmalla() {
+        Varasto varasto1 = new Varasto(0.0);
+        Varasto varasto2 = new Varasto(-0.1);
+        assertEquals(0.0, varasto1.getSaldo(), 0);
+        assertEquals(0.0, varasto2.getSaldo(), 0);
+    }
+
+    @Test
+    public void alkusaldoJaTilavuusNollaKunAlustetaanNollallaTaiAlemmalla() {
+        Varasto varasto1 = new Varasto(0.0, 0.0);
+        Varasto varasto2 = new Varasto(-0.1, -0.1);
+        assertEquals(0.0, varasto1.getTilavuus(), 0);
+        assertEquals(0.0, varasto2.getTilavuus(), 0);
+        assertEquals(0.0, varasto1.getSaldo(), 0);
+        assertEquals(0.0, varasto2.getSaldo(), 0);
+    }
+
+    @Test
+    public void alkusaldoEiHuomioiYlimaaraa() {
+        Varasto varasto1 = new Varasto(1.1, 2.1);
+        assertEquals(1.1, varasto1.getSaldo(), 0);
+    }
+
+    @Test
+    public void virheellisenMaaranLisaysEiOnnistu() {
+        double saldo = varasto.getSaldo();
+        varasto.lisaaVarastoon(-1);
+        assertEquals(saldo, varasto.getSaldo(), 0);
+    }
+
+    @Test
+    public void varastoTayteenMuttaEiYli() {
+        double tilavuus = varasto.getTilavuus();
+        varasto.lisaaVarastoon(tilavuus + 1);
+        assertEquals(tilavuus, this.varasto.getSaldo(), 0);
+    }
+
+    @Test
+    public void pikapoistuminenOVirheellisellaOttoMaaralla() {
+        double saldo = varasto.getSaldo();
+        varasto.otaVarastosta(-1);
+        assertEquals(saldo, varasto.getSaldo(), 0);
+    }
+
+    @Test
+    public void ottaaVainJaljellaOlevanSaldon() {
+        double saldo = varasto.getSaldo();
+        varasto.otaVarastosta(saldo + 1);
+        assertEquals(0, this.varasto.getSaldo(), 0);
+    }
+
+    @Test
+    public void merkkijonoOnOikein() {
+        Varasto varasto1 = new Varasto(3, 1);
+        assertEquals("saldo = 1.0, vielä tilaa 2.0", varasto1.toString());
+    }
 }
