@@ -121,6 +121,6 @@ public class VarastoTest {
     @Test
     public void merkkijonoOnOikein() {
         Varasto varasto1 = new Varasto(3, 1);
-        assertEquals("saldo = 1.0, vielä tilaa 2.", varasto1.toString());
+        assertEquals("saldo = 1.0, vielä tilaa 2.0", varasto1.toString());
     }
 }
