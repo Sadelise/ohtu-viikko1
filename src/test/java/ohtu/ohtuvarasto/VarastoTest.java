@@ -112,7 +112,6 @@ public class VarastoTest {
 
     @Test
     public void ottaaVainJaljellaOlevanSaldon() {
-        //ei ylimääräistä
         double saldo = varasto.getSaldo();
         varasto.otaVarastosta(saldo + 1);
         assertEquals(0, this.varasto.getSaldo(), 0);
